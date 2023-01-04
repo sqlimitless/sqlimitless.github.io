@@ -3,14 +3,17 @@ layout: page
 title: About me
 subtitle: 학습내용 정리하는 장소
 ---
+### 소개
+직업: 백엔드 개발자  
+주력언어: Java  
+취미: 골프  
+요즘 재미붙은 분야: C++, 언리얼엔진
 
-My name is Inigo Montoya. I have the following qualities:
+### 지나온 길
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+2018년 개발 시작
+- 2018 ~ 2019: 쇼핑몰 및 웹에이전시 솔루션
+- 2020 ~ 2022: 보안 이메일 솔루션
+- 2022 ~ 현재: 골프 어플 솔루션
 
-What else do you need?
-
-### My story
-
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](https://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+[기존 블로그](https://sqlimitless.tistory.com)
