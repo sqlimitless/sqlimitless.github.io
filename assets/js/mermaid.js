@@ -1,0 +1,2 @@
+mermaid.initialize({startOnLoad:true});
+window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
