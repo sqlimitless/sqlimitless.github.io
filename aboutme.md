@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About me
-subtitle: Why you'd want to go on a date with me
+subtitle: 학습내용 정리하는 장소
 ---
 
 My name is Inigo Montoya. I have the following qualities:
