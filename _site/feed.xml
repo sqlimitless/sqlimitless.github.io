@@ -12,25 +12,61 @@
     
     
       <item>
-        <title>Sample blog post</title>
+        <title>애그리거트</title>
         <description>
-          Each post also has a subtitle - 
-          This is a demo post to show you how to write blog posts with markdown. I strongly encourage you to take 5 minutes to learn how to write in markdown - it’ll teach you how to transform regular text into bold/italics/headings/tables/etc. Here is some bold text Here is a secondary...
+          
+          트랜젝션 스크립트 패턴 서비스 계층에서 직접 DB에 붙어서 비즈니스 로직을 처리하는것. 비즈니스 로직이 복잡할수록 트랜젝션간에 비즈니스 로직이 중복되기 쉽다. 중복된 코드가 동기와 되지 않으면 일관성 없는 동작이 발생하기 쉽다. 그로인해 유지보구사 어려운 거대한 진흙 덩이가 될 가능성이 큼 액티브 레코드 패턴 객체 모댈(Entity)을 만들어서 사용. 끽해봐야 getter, setter 정도이며 save()정도...
         </description>
-        <pubDate>Fri, 28 Feb 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2020-02-28-test-markdown/</link>
-        <guid isPermaLink="true">http://localhost:4000/2020-02-28-test-markdown/</guid>
+        <pubDate>Wed, 04 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2023-01-04-%EC%95%A0%EA%B7%B8%EB%A6%AC%EA%B1%B0%ED%8A%B8/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-01-04-%EC%95%A0%EA%B7%B8%EB%A6%AC%EA%B1%B0%ED%8A%B8/</guid>
       </item>
     
       <item>
-        <title>Flake it till you make it</title>
+        <title>바운디드 컨텍스트</title>
         <description>
-          Excerpt from Soulshaping by Jeff Brown - 
-          Under what circumstances should we step off a path? When is it essential that we finish what we start? If I bought a bag of peanuts and had an allergic reaction, no one would fault me if I threw it out. If I ended a relationship with a woman who...
+          
+          용어 네이버 사전을 검색해봤을때 bounded : 경계가 있는, 칸막이 된 context : 맥락, 전후사전 이렇게 검색이 된다. 말 그대로 해석하면 경계가 있는 맥락 정도로 해석하면 될꺼같음. 알아보기에 앞서 일딴 우리가 개발을 계속 해 나가다 보면 한가지 주제에대해서 기능이 계속 붙어나가고, 다른기능과 강한 결합을 맺게되기도하는데 그렇게 계속 붙여나가다보면 너무 거대해진다. 크릭에반스는...
         </description>
-        <pubDate>Wed, 26 Feb 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2020-02-26-flake-it-till-you-make-it/</link>
-        <guid isPermaLink="true">http://localhost:4000/2020-02-26-flake-it-till-you-make-it/</guid>
+        <pubDate>Tue, 03 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2023-01-03-%EB%B0%94%EC%9A%B4%EB%94%94%EB%93%9C-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-01-03-%EB%B0%94%EC%9A%B4%EB%94%94%EB%93%9C-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8/</guid>
+      </item>
+    
+      <item>
+        <title>유비쿼터스 랭귀지</title>
+        <description>
+          
+          유비쿼터스 랭귀지(보편언어)
+네이버 사전에서 단어를 검색했을때
+
+  ubiquitous : 어디에나 있는, 아주 흔한
+  language : 언어
+있는 그대로 해석하자면 어디에나 있는 흔한 언어 정도로 해석할수있다.
+
+
+번역서를 보면 보편언어라고도 표현하는 유비쿼터스 랭귀지는 쉽게말해
+설계와 개발자 개발자와 다른 개발자 사이에 용어를 통일해서 애매한 부분 없이 명확하게 단일화하는 체계정도로 생각하면 될꺼같다.
+
+
+  예를들자면 주문
+
+
+        </description>
+        <pubDate>Mon, 02 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2023-01-02-%EC%9C%A0%EB%B9%84%EC%BF%BC%ED%84%B0%EC%8A%A4-%EB%9E%AD%EA%B7%80%EC%A7%80/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-01-02-%EC%9C%A0%EB%B9%84%EC%BF%BC%ED%84%B0%EC%8A%A4-%EB%9E%AD%EA%B7%80%EC%A7%80/</guid>
+      </item>
+    
+      <item>
+        <title>Domain Driven Disign</title>
+        <description>
+          도메인 주도 설계란? - 
+          팀에서 DDD에 대해 발표하겠다 선언하는바람에 열심히 공부하고 발표했었는데 시간이 지나고 블로그에 정리한다. 발표도 최대한 간추려서 발표했는데 그걸 또 간추려보았다. 반 버논의 도메인 주도 설계 핵심과 최범균님의 도메인 주도 개발 시작하기 및 인프런에 한정헌님의 강의를 보고 작성한 글이다. 모노리식 아키텍처 기존 전통적인 아키텍처. 하나의 서비스 또는 애플리케이션이 하나의 거대한 아키텍쳐 하나로...
+        </description>
+        <pubDate>Sun, 01 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2023-01-01-%EB%8F%84%EB%A9%94%EC%9D%B8-%EC%A3%BC%EB%8F%84-%EC%84%A4%EA%B3%84%EB%9E%80/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-01-01-%EB%8F%84%EB%A9%94%EC%9D%B8-%EC%A3%BC%EB%8F%84-%EC%84%A4%EA%B3%84%EB%9E%80/</guid>
       </item>
     
   </channel>

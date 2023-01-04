@@ -154,9 +154,9 @@ footer-hover-col: "#0085A1"
 # If you have common JavaScript files that should be included in every page, list them here
 #site-js:
 #  - "/assets/js/custom-script.js"
-site-js:
- - "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"
- - "/assets/js/mermaid.js"
+# site-js:
+#  - "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"
+#  - "/assets/js/mermaid.js"
 #################################
 # --- Web Analytics Section --- #
 #################################
