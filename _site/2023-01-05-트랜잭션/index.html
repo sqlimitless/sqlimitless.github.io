@@ -247,10 +247,10 @@
 
 <p>Mysql의 경우</p>
 
-<p>MVCC 데이터베이스가 데이터의 업데이트가 필요할 때, 기존 데이터 항목을 새로운 데이터가 덮어쓰는 대신 데이터 항목의 새로운 버전을 만든다.
+<p>MVCC 데이터베이스가 데이터의 업데이트가 필요할 때, 기존 데이터 항목을 새로운 데이터가 덮어쓰는 대신 데이터 항목의 새로운 버전을 만든다.<br />
 변경사항을 Undo Log 영역에 보관하고있다가 커밋이나 롤백하지않은 상태에서 조회하면 격리 수준에 따라서 데이터를 반환한다.</p>
 
-<p>격리수준이 <code class="language-plaintext highlighter-rouge">READ_UNCOMMITTED</code> 인 경우에는 InnoDB 버퍼풀이나 베이터 파일에서 데이터를 반환한다.
+<p>격리수준이 <code class="language-plaintext highlighter-rouge">READ_UNCOMMITTED</code> 인 경우에는 InnoDB 버퍼풀이나 베이터 파일에서 데이터를 반환한다.<br />
 그 이상의 격리수준인 경우엔 Undo Log 영역의 이전 내용의 데이터를 반환한다.</p>
 
 <h2 id="undo-log">Undo Log</h2>

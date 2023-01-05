@@ -271,24 +271,44 @@ Note Right Of S: 기대값 : data = 3, 결과값 : data = 2
 <hr />
 <p>MySql InnoDB는 인덱스 락을 건다.
 예를들어</p>
-<pre><code class="language-SQL">/*city 컬럼에 인덱스 설정되어있다고 가정*/
-SELECT COUNT(*) FROM user WHERE city = 'seoul' -- 1000건 조회
 
-SELECT COUNT(*) FROM user WHERE city = 'seoul' AND nick_name = 'LHJ' -- 1건 조회
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*city 컬럼에 인덱스 설정되어있다고 가정*/</span>
+<span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">FROM</span> <span class="k">user</span> <span class="k">WHERE</span> <span class="n">city</span> <span class="o">=</span> <span class="s1">'seoul'</span> <span class="c1">-- 1000건 조회</span>
 
-UPDATE user SET phone = '01012345678' WHERE city = 'seoul' AND nick_name = 'LHJ'
-</code></pre>
+<span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">FROM</span> <span class="k">user</span> <span class="k">WHERE</span> <span class="n">city</span> <span class="o">=</span> <span class="s1">'seoul'</span> <span class="k">AND</span> <span class="n">nick_name</span> <span class="o">=</span> <span class="s1">'LHJ'</span> <span class="c1">-- 1건 조회</span>
+
+<span class="k">UPDATE</span> <span class="k">user</span> <span class="k">SET</span> <span class="n">phone</span> <span class="o">=</span> <span class="s1">'01012345678'</span> <span class="k">WHERE</span> <span class="n">city</span> <span class="o">=</span> <span class="s1">'seoul'</span> <span class="k">AND</span> <span class="n">nick_name</span> <span class="o">=</span> <span class="s1">'LHJ'</span>
+</code></pre></div></div>
+
 <p>해당 업데이트 쿼리를 날리면 실제 업데이트 되는건 한건이지만 city = ‘seoul’ 조건에 해당하는 1000건에 락이 걸린다.</p>
 
 <h3 id="갭-락">갭 락</h3>
 <hr />
 <p>인덱스 사이사이 비어있는 레코드에 락을 건다.
-예를들어
-|id|nick_name|
-|—|—|
-|3|lhj|
-|7|java_holic|
-|10|cpp|</p>
+예를들어</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>nick_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>3</td>
+      <td>lhj</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>java_holic</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>cpp</td>
+    </tr>
+  </tbody>
+</table>
 
 <p>이런 테이블이 있을때</p>
 <ul>
@@ -298,8 +318,8 @@ UPDATE user SET phone = '01012345678' WHERE city = 'seoul' AND nick_name = 'LHJ'
 이 부분이갭이고 이러한 갭에 락이 걸린다.</li>
 </ul>
 
-<pre><code class="language-SQL">SELECT id FROM table WHERE id BETWEEN 5 AND 15 FOR UPDATE;
-</code></pre>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">id</span> <span class="k">FROM</span> <span class="k">table</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="k">BETWEEN</span> <span class="mi">5</span> <span class="k">AND</span> <span class="mi">15</span> <span class="k">FOR</span> <span class="k">UPDATE</span><span class="p">;</span>
+</code></pre></div></div>
 
 <p>이런경우, <code class="language-plaintext highlighter-rouge">5 &lt;= id &lt; 7</code>, <code class="language-plaintext highlighter-rouge">7 &lt; id &lt; 10</code>, <code class="language-plaintext highlighter-rouge">10 &lt; id &lt;= 15</code>는 락에 걸린다.</p>
 
