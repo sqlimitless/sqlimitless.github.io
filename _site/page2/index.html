@@ -9,13 +9,13 @@
 
   
 
-  <title>개발자취</title>
+  <title>My website</title>
 
   
   <meta name="author" content="이훈재">
   
 
-  <meta name="description" content="">
+  <meta name="description" content="This is where I will tell my friends way too much about me">
 
   
 
@@ -76,8 +76,8 @@
 
   
   <meta property="og:site_name" content="개발자취">
-  <meta property="og:title" content="개발자취">
-  <meta property="og:description" content="">
+  <meta property="og:title" content="My website">
+  <meta property="og:description" content="This is where I will tell my friends way too much about me">
 
   
   <meta property="og:image" content="http://localhost:4000/assets/img/avatar-icon.png">
@@ -85,8 +85,8 @@
 
   
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/">
-  <link rel="canonical" href="http://localhost:4000/">
+  <meta property="og:url" content="http://localhost:4000/page2/">
+  <link rel="canonical" href="http://localhost:4000/page2/">
   
 
   
@@ -95,8 +95,8 @@
   <meta name="twitter:site" content="@">
   <meta name="twitter:creator" content="@">
 
-  <meta property="twitter:title" content="개발자취">
-  <meta property="twitter:description" content="">
+  <meta property="twitter:title" content="My website">
+  <meta property="twitter:description" content="This is where I will tell my friends way too much about me">
 
   
   <meta name="twitter:image" content="http://localhost:4000/assets/img/avatar-icon.png">
@@ -151,7 +151,33 @@
 
 
 
-<div class="intro-header"></div>
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="page-heading">
+          <h1>My website</h1>
+          
+            
+              <hr class="small">
+              <span class="page-subheading">This is where I will tell my friends way too much about me</span>
+            
+          
+
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
 
 
 
@@ -164,372 +190,8 @@
 
 
 
-
 <!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
 <ul class="posts-list list-unstyled" role="list">
-  
-  <li class="post-preview">
-    <article>
-      
-
-      
-
-      <a href="http://localhost:4000/2023-01-05-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-%EC%B5%9C%EC%A0%81%ED%99%94/">
-        <h2 class="post-title">페이지네이션 최적화</h2>
-
-        
-          <h3 class="post-subtitle">
-          Mysql
-          </h3>
-        
-      </a>
-
-      <p class="post-meta">
-        
-        Posted on 2023, January 5
-      </p>
-
-      
-
-      
-      
-
-      <div class="post-entry">
-        
-        오프셋 기반 페이징시 문제
-
-
-  마지막 페이지를 구하기 위해 전체 갯수를 구해야한다.
-  오프셋 이전의 데이터를 다시 읽어온다. (불필요한 데이터 조회 발생)
-
-
-
-        
-        
-          <a href="http://localhost:4000/2023-01-05-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-%EC%B5%9C%EC%A0%81%ED%99%94/" class="post-read-more">[Read&nbsp;More]</a>
-        
-      </div>
-      
-
-      
-      <div class="blog-tags">
-        <span>Tags:</span>
-        <!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
-        <ul class="d-inline list-inline" role="list">
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#대용량 데이터 및 트레픽처리">대용량 데이터 및 트레픽처리</a>
-          </li>
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#Mysql">Mysql</a>
-          </li>
-          
-        </ul>
-      </div>
-      
-
-    </article>
-  </li>
-  
-  <li class="post-preview">
-    <article>
-      
-
-      
-
-      <a href="http://localhost:4000/2023-01-05-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/">
-        <h2 class="post-title">트랜잭션</h2>
-
-        
-          <h3 class="post-subtitle">
-          Mysql
-          </h3>
-        
-      </a>
-
-      <p class="post-meta">
-        
-        Posted on 2023, January 5
-      </p>
-
-      
-
-      
-      
-
-      <div class="post-entry">
-        
-        ACID
-
-
-  Atomicity
-    
-      원자적 연산을 보장해야 한다.
-        
-          MVCC를 통해서
-        
-      
-    
-  
-  Consistency
-    
-      트랜잭션이 종료되었을 때 데이터 무결성이 보장된다.
-        
-          제약조건을 통해
-        
-      
-    
-  
-  Isolation
-    
-      트랜잭션은 서로 간섭하지 않고 독립적으로 동작한다.
-        
-          많은 성능을 포기해야하므로 개발자가 제어가능
-          트랜잭션 격리레벨을 통해
-        
-      
-    
-  
-  Durability
-    
-      완료된 트랜잭션은 유실되지 않는다.
-        
-          WAL을 통해
-        
-      
-    
-  
-
-
-
-        
-        
-          <a href="http://localhost:4000/2023-01-05-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/" class="post-read-more">[Read&nbsp;More]</a>
-        
-      </div>
-      
-
-      
-      <div class="blog-tags">
-        <span>Tags:</span>
-        <!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
-        <ul class="d-inline list-inline" role="list">
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#대용량 데이터 및 트레픽처리">대용량 데이터 및 트레픽처리</a>
-          </li>
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#Mysql">Mysql</a>
-          </li>
-          
-        </ul>
-      </div>
-      
-
-    </article>
-  </li>
-  
-  <li class="post-preview">
-    <article>
-      
-
-      
-
-      <a href="http://localhost:4000/2023-01-05-%EC%A0%95%EA%B7%9C%ED%99%94/">
-        <h2 class="post-title">정규화</h2>
-
-        
-          <h3 class="post-subtitle">
-          Mysql
-          </h3>
-        
-      </a>
-
-      <p class="post-meta">
-        
-        Posted on 2023, January 5
-      </p>
-
-      
-
-      
-      
-
-      <div class="post-entry">
-        
-        중복되는 데이터는 반드시 정규화 해야할까?
-
-
-  무조건적인 기계적인 정규화보다는 정규화는 결국 읽기 비용이 늘고 쓰기 비용이 줄어드는 작업. 상황에 맞게 작업해야함.
-
-
-
-        
-        
-          <a href="http://localhost:4000/2023-01-05-%EC%A0%95%EA%B7%9C%ED%99%94/" class="post-read-more">[Read&nbsp;More]</a>
-        
-      </div>
-      
-
-      
-      <div class="blog-tags">
-        <span>Tags:</span>
-        <!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
-        <ul class="d-inline list-inline" role="list">
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#대용량 데이터 및 트레픽처리">대용량 데이터 및 트레픽처리</a>
-          </li>
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#Mysql">Mysql</a>
-          </li>
-          
-        </ul>
-      </div>
-      
-
-    </article>
-  </li>
-  
-  <li class="post-preview">
-    <article>
-      
-
-      
-
-      <a href="http://localhost:4000/2023-01-05-%EC%9D%B8%EB%8D%B1%EC%8A%A4/">
-        <h2 class="post-title">인덱스</h2>
-
-        
-          <h3 class="post-subtitle">
-          Mysql
-          </h3>
-        
-      </a>
-
-      <p class="post-meta">
-        
-        Posted on 2023, January 5
-      </p>
-
-      
-
-      
-      
-
-      <div class="post-entry">
-        
-        인덱스 기본동작
-
-인덱스는 정렬된 자료구조로서 이를 통해 탐색범위를 최소화 한다.
-|데이터주소|name|age|
-|—|—|—|
-|1|홍길동|23|
-|2|이훈재|35|
-|3|임꺽정|33|
-|4|이순신|32|
-이 테이블에 age를 인덱스로 잡으면
-|age|데이터주소|
-|—|—|
-|23|1|
-|32|4|
-|33|3|
-|35|2|
-인덱스를 걸어둔 컬럼(age)을 기준으로 정렬한 테이블이 하나 생긴다.
-쿼리가 들어오면 인덱스를 먼저 확인한다.
-
-
-        
-        
-          <a href="http://localhost:4000/2023-01-05-%EC%9D%B8%EB%8D%B1%EC%8A%A4/" class="post-read-more">[Read&nbsp;More]</a>
-        
-      </div>
-      
-
-      
-      <div class="blog-tags">
-        <span>Tags:</span>
-        <!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
-        <ul class="d-inline list-inline" role="list">
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#대용량 데이터 및 트레픽처리">대용량 데이터 및 트레픽처리</a>
-          </li>
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#Mysql">Mysql</a>
-          </li>
-          
-        </ul>
-      </div>
-      
-
-    </article>
-  </li>
-  
-  <li class="post-preview">
-    <article>
-      
-
-      
-
-      <a href="http://localhost:4000/2023-01-05-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/">
-        <h2 class="post-title">동시성 제어</h2>
-
-        
-          <h3 class="post-subtitle">
-          Mysql
-          </h3>
-        
-      </a>
-
-      <p class="post-meta">
-        
-        Posted on 2023, January 5
-      </p>
-
-      
-
-      
-      
-
-      <div class="post-entry">
-        
-        멀티스레드 환경
-
-동시성 이슈가 발생하는 일반적인 패턴
-
-
-        
-        
-          <a href="http://localhost:4000/2023-01-05-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/" class="post-read-more">[Read&nbsp;More]</a>
-        
-      </div>
-      
-
-      
-      <div class="blog-tags">
-        <span>Tags:</span>
-        <!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
-        <ul class="d-inline list-inline" role="list">
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#대용량 데이터 및 트레픽처리">대용량 데이터 및 트레픽처리</a>
-          </li>
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#Mysql">Mysql</a>
-          </li>
-          
-        </ul>
-      </div>
-      
-
-    </article>
-  </li>
   
   <li class="post-preview">
     <article>
@@ -855,149 +517,21 @@ flowchart TD
     </article>
   </li>
   
-  <li class="post-preview">
-    <article>
-      
-
-      
-
-      <a href="http://localhost:4000/2023-01-02-%EC%9C%A0%EB%B9%84%EC%BF%BC%ED%84%B0%EC%8A%A4-%EB%9E%AD%EA%B7%80%EC%A7%80/">
-        <h2 class="post-title">유비쿼터스 랭귀지</h2>
-
-        
-          <h3 class="post-subtitle">
-          Domain Driven Disign
-          </h3>
-        
-      </a>
-
-      <p class="post-meta">
-        
-        Posted on 2023, January 2
-      </p>
-
-      
-      <div class="post-image post-image-small">
-        <a href="http://localhost:4000/2023-01-02-%EC%9C%A0%EB%B9%84%EC%BF%BC%ED%84%B0%EC%8A%A4-%EB%9E%AD%EA%B7%80%EC%A7%80/" aria-label="Thumbnail">
-          <img src="http://localhost:4000/assets/img/DDD/DDD_Book_Thum.jpeg" alt="Post thumbnail">
-        </a>
-      </div>
-      
-
-      
-      
-      <div class="post-image post-image-short">
-        <a href="http://localhost:4000/2023-01-02-%EC%9C%A0%EB%B9%84%EC%BF%BC%ED%84%B0%EC%8A%A4-%EB%9E%AD%EA%B7%80%EC%A7%80/" aria-label="Thumbnail">
-          <img src="http://localhost:4000/assets/img/DDD/DDD_Book_Thum.jpeg" alt="Post thumbnail">
-        </a>
-      </div>
-      
-
-      <div class="post-entry">
-        
-        유비쿼터스 랭귀지(보편언어)
-네이버 사전에서 단어를 검색했을때
-
-  ubiquitous : 어디에나 있는, 아주 흔한
-  language : 언어
-있는 그대로 해석하자면 어디에나 있는 흔한 언어 정도로 해석할수있다.
+</ul>
 
 
-
-        
-        
-          <a href="http://localhost:4000/2023-01-02-%EC%9C%A0%EB%B9%84%EC%BF%BC%ED%84%B0%EC%8A%A4-%EB%9E%AD%EA%B7%80%EC%A7%80/" class="post-read-more">[Read&nbsp;More]</a>
-        
-      </div>
-      
-
-      
-      <div class="blog-tags">
-        <span>Tags:</span>
-        <!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
-        <ul class="d-inline list-inline" role="list">
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#Domain Driven Disign">Domain Driven Disign</a>
-          </li>
-          
-        </ul>
-      </div>
-      
-
-    </article>
+<ul class="pagination main-pager">
+  
+  <li class="page-item previous">
+    <a class="page-link" href="http://localhost:4000/">&larr; Newer Posts</a>
   </li>
   
-  <li class="post-preview">
-    <article>
-      
-
-      
-
-      <a href="http://localhost:4000/2023-01-01-%EB%8F%84%EB%A9%94%EC%9D%B8-%EC%A3%BC%EB%8F%84-%EC%84%A4%EA%B3%84%EB%9E%80/">
-        <h2 class="post-title">도메인 주도 설계란?</h2>
-
-        
-          <h3 class="post-subtitle">
-          Domain Driven Disign
-          </h3>
-        
-      </a>
-
-      <p class="post-meta">
-        
-        Posted on 2023, January 1
-      </p>
-
-      
-      <div class="post-image post-image-small">
-        <a href="http://localhost:4000/2023-01-01-%EB%8F%84%EB%A9%94%EC%9D%B8-%EC%A3%BC%EB%8F%84-%EC%84%A4%EA%B3%84%EB%9E%80/" aria-label="Thumbnail">
-          <img src="http://localhost:4000/assets/img/DDD/DDD_Book_Thum.jpeg" alt="Post thumbnail">
-        </a>
-      </div>
-      
-
-      
-      
-      <div class="post-image post-image-short">
-        <a href="http://localhost:4000/2023-01-01-%EB%8F%84%EB%A9%94%EC%9D%B8-%EC%A3%BC%EB%8F%84-%EC%84%A4%EA%B3%84%EB%9E%80/" aria-label="Thumbnail">
-          <img src="http://localhost:4000/assets/img/DDD/DDD_Book_Thum.jpeg" alt="Post thumbnail">
-        </a>
-      </div>
-      
-
-      <div class="post-entry">
-        
-        팀에서 DDD에 대해 발표하겠다 선언하는바람에 열심히 공부하고 발표했었는데
-시간이 지나고 블로그에 정리한다.
-
-
-        
-        
-          <a href="http://localhost:4000/2023-01-01-%EB%8F%84%EB%A9%94%EC%9D%B8-%EC%A3%BC%EB%8F%84-%EC%84%A4%EA%B3%84%EB%9E%80/" class="post-read-more">[Read&nbsp;More]</a>
-        
-      </div>
-      
-
-      
-      <div class="blog-tags">
-        <span>Tags:</span>
-        <!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
-        <ul class="d-inline list-inline" role="list">
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#Domain Driven Disign">Domain Driven Disign</a>
-          </li>
-          
-        </ul>
-      </div>
-      
-
-    </article>
+  
+  <li class="page-item next">
+    <a class="page-link" href="http://localhost:4000/page3">Older Posts &rarr;</a>
   </li>
   
 </ul>
-
 
 
 

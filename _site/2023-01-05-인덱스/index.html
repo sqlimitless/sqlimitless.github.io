@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>인덱스</title>
+
+  
+  <meta name="author" content="이훈재">
+  
+
+  <meta name="description" content="Mysql">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="개발자취" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="개발자취">
+  <meta property="og:title" content="인덱스">
+  <meta property="og:description" content="Mysql">
+
+  
+  <meta property="og:image" content="http://localhost:4000/assets/img/avatar-icon.png">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="이훈재">
+  <meta property="og:article:published_time" content="2023-01-05T00:00:00+09:00">
+  <meta property="og:url" content="http://localhost:4000/2023-01-05-%EC%9D%B8%EB%8D%B1%EC%8A%A4/">
+  <link rel="canonical" href="http://localhost:4000/2023-01-05-%EC%9D%B8%EB%8D%B1%EC%8A%A4/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@">
+  <meta name="twitter:creator" content="@">
+
+  <meta property="twitter:title" content="인덱스">
+  <meta property="twitter:description" content="Mysql">
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/assets/img/avatar-icon.png">
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">개발자취</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/aboutme">About Me</a>
+          </li></ul>
+  </div>
+
+  
+
+  
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        <a href="http://localhost:4000/">
+          <img alt="Navigation bar avatar" class="avatar-img" src="/assets/img/avatar-icon.png" />
+        </a>
+      </div>
+    </div>
+  
+
+</nav>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>인덱스</h1>
+          
+            
+              <h2 class="post-subheading">Mysql</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on 2023, January 5</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+ <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h2 id="인덱스-기본동작">인덱스 기본동작</h2>
+<hr />
+<p>인덱스는 정렬된 자료구조로서 이를 통해 탐색범위를 최소화 한다.
+|데이터주소|name|age|
+|—|—|—|
+|1|홍길동|23|
+|2|이훈재|35|
+|3|임꺽정|33|
+|4|이순신|32|
+이 테이블에 age를 인덱스로 잡으면
+|age|데이터주소|
+|—|—|
+|23|1|
+|32|4|
+|33|3|
+|35|2|
+인덱스를 걸어둔 컬럼(age)을 기준으로 정렬한 테이블이 하나 생긴다.
+쿼리가 들어오면 인덱스를 먼저 확인한다.</p>
+
+<h3 id="인덱스를-이용한-검색자료구조">인덱스를 이용한 검색자료구조</h3>
+<ol>
+  <li>HashMap
+    <ul>
+      <li>단건 검색속도 O(1)</li>
+      <li>범위 검색 속도 O(N)</li>
+      <li>전방 일치 탐색 불가
+        <ul>
+          <li>ex) like ‘AB%’</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>List
+    <ul>
+      <li>정렬되지 않은 리스트 O(N)</li>
+      <li>정렬된 리스트 O(logN)</li>
+      <li>정렬되지 않은 리스트의 정렬 시간 복잡도 O(N) ~ O(N * logN)</li>
+      <li>삽입/ 삭제 비용 매우 높음</li>
+    </ul>
+  </li>
+  <li>Tree
+    <ul>
+      <li>트리 높이에 따라 시간 복잡도가 결정됨</li>
+      <li>트리의 높이를 최소화 하는것이 중요</li>
+      <li>한쪽의 노드가 치우치지 않도록 균형을 잡아누는 트리 사용</li>
+    </ul>
+  </li>
+  <li><strong>B + Tree</strong>
+    <ul>
+      <li>삽입 / 삭제시 항상 균형을 이훔</li>
+      <li>하나의 노드가 여러 개의 자식 노드를 가질수 있음</li>
+      <li>리프노트에만 데이터 존재
+        <ul>
+          <li>연속적인 데이터 접근시 유리</li>
+        </ul>
+      </li>
+      <li>대부분의 RBDMS는 B+Tree사용</li>
+    </ul>
+  </li>
+</ol>
+
+<p>데이터가 추가되거나 수정될때 B+Tree모양이 바뀌기 때문에
+조회성능은 높아질수있겠지만 추가, 수정은성능이 낮아진다.</p>
+
+<h2 id="클러스터-인덱스">클러스터 인덱스</h2>
+<hr />
+<ol>
+  <li>클러스터 인덱스는 데이터 위치를 결정하는 키 값이다.</li>
+  <li>MySQL의 PK는 클러스터 인덱스다.</li>
+  <li>MySQL에서 PK를 제외한 모든 인덱스는 PK를 가지고 있다.</li>
+</ol>
+
+<p>|클러스터 키|데이터 주소|
+|—|—|
+|1|A|
+|2|B|
+|3|C|
+|4|E|
+이렇게 있다고 가정할때 클러스터 키 4번이 INSERT되면 기존 4번뒷자리들이 한칸씩 일리고 4번이 들어온다.</p>
+
+<p>|클러스터 키|데이터 주소|
+|—|—|
+|1|A|
+|2|B|
+|3|C|
+|4|D|
+|5|E|
+따라서 클러스터 키 삽입/ 갱신시에 성능이슈가 발생한다.</p>
+
+<p>따라서 2번 MySQL에서 PK는 클러스터 인덱스 이기 때문에 PK 삽입/ 갱신시 성능이슈 발생한다.</p>
+
+<p>3번 MySQL에서 PK를 제외한 모든 인덱스는 PK를 가지고 있다. 이 말은 MySQL은 PK가 클러스터 인덱스이기때문에 PK값이 추가되거나 변경되는 경우 만약 다른 인덱스들이 데이터주소를 직접적으로 들고있으면 다른 인덱스들의 값도 전부 바뀌어야하므로 부하가 걸린다.
+따라서 다른 인덱스들이 데이터 주소가 아닌 PK를 들고있으므로 인해 PK값이 변경할때 별 상관없이 PK를 들고만 있으면 된다.</p>
+
+<p>다라서 세컨더리 인덱스만으로는 데이터를 찾아갈 수 없다.</p>
+
+<ul>
+  <li>클러스터 인덱스 장점
+    <ol>
+      <li>PK를 활용한 검색이 빠르다. 특히 범위검색.</li>
+      <li>세컨더리 인덱스들이 PK를 가지고있어 커버링에 유리하다.</li>
+    </ol>
+  </li>
+</ul>
+
+<h6 id="uuid-vs-auto-increment">UUID VS Auto Increment</h6>
+<ul>
+  <li>장점
+    <ul>
+      <li>UUID
+        <ul>
+          <li>분산 시스템에 유리하다.
+            <ul>
+              <li>각각의 값이 사실상 유일하기때문.</li>
+            </ul>
+          </li>
+          <li>개발 환경에 독립적이다.</li>
+        </ul>
+      </li>
+      <li>Auto Increment
+        <ul>
+          <li>빠르다.</li>
+          <li>사람이 볼때 눈이 편하다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>단점
+    <ul>
+      <li>UUID
+        <ul>
+          <li>성능저하가 크다.</li>
+          <li>눈으로 보기 힘들다.</li>
+          <li>필요 이상으로 공간을 많이 차지한다.</li>
+        </ul>
+      </li>
+      <li>Auto Increment
+        <ul>
+          <li>분산 시스템에 부적합하다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="인덱스-사용시-주의사항">인덱스 사용시 주의사항</h2>
+<hr />
+<ol>
+  <li>인덱스 필드 가공
+    <ul>
+      <li>인덱스를 가공하면 정상적으로 인덱스를 사용해야하는지 옵티마이저는 판단하지 못한다.
+        <ul>
+          <li>ex) Int타입인 인덱스를 String타입으로 비교한다거나 인덱스 컬럼을 index * 2 처럼 가공한다거나.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>복합 인덱스
+    <ul>
+      <li>선두 컬럼의 인덱스를 기준으로 정렬되고 그 다음 인덱스가 정렬되기 때문에 해당 인덱스는 전체적으로 정렬된 모양이 아니기 때문에 선구컬럼의 인덱스가 중요하다.</li>
+    </ul>
+  </li>
+  <li>하나의 쿼리에는 하나의 인덱스만
+    <ul>
+      <li>따라서 WHERE, ORDER BY, GROUP BY 혼합해서 사용할 때에는 인덱스를 잘 고려해야함.</li>
+    </ul>
+  </li>
+</ol>
+
+<ul>
+  <li>의도대로 인덱스가 동작하지 않을경우엔 explain으로 확인하자</li>
+  <li>익덱스도 비용 -&gt; 쓰기를 희생하고 조회를 얻는다.</li>
+  <li>꼭 인덱스로만 해결할 수 있는 문제인가?</li>
+</ul>
+
+<h3 id="인덱스를-모든-컬럼에-걸어두면-좋은거-아닐까">인덱스를 모든 컬럼에 걸어두면 좋은거 아닐까?</h3>
+<ul>
+  <li>위에 써났듯이 결국 인덱스도 비용이기 때문에 저장공간이 많이 늘어나고 INSERT시 성능이 부족해진다.</li>
+</ul>
+
+<h3 id="인텍스-설정-기준">인텍스 설정 기준</h3>
+<ul>
+  <li>카디널리티</li>
+  <li>선택도</li>
+  <li>활용도</li>
+  <li>중복도</li>
+</ul>
+
+<h4 id="카디널리티가-높을-수록-인덱스-설정에-좋은-컬럼이다">카디널리티가 높을 수록 인덱스 설정에 좋은 컬럼이다.</h4>
+<p>= 컬럼이 갖고있는 값의 중복정도가 낮을수록 좋다.
+	예를들어 0과 1뿐인 컬럼은 하나를 걸러내도 나머지 절반이 남아있기 때문에..</p>
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#대용량 데이터 및 트레픽처리">대용량 데이터 및 트레픽처리</a>
+          
+            <a href="/tags#Mysql">Mysql</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2023-01-05-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/" data-toggle="tooltip" data-placement="top" title="동시성 제어">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2023-01-05-%EC%A0%95%EA%B7%9C%ED%99%94/" data-toggle="tooltip" data-placement="top" title="정규화">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+<script src="/assets/js/mermaid.js"></script>
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="mailto:lhjhoon@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        이훈재
+        &nbsp;&bull;&nbsp;
+      
+      2023
+
+      
+        &nbsp;&bull;&nbsp;
+        <span class="author-site">
+          <a href="http://localhost:4000/">sqlimitless.github.io</a>
+        </span>
+      
+
+      
+
+      
+
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

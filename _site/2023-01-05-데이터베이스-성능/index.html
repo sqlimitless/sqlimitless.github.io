@@ -9,13 +9,13 @@
 
   
 
-  <title>바운디드 컨텍스트</title>
+  <title>데이터베이스 성능</title>
 
   
   <meta name="author" content="이훈재">
   
 
-  <meta name="description" content="Domain Driven Disign">
+  <meta name="description" content="Mysql">
 
   
 
@@ -76,32 +76,32 @@
 
   
   <meta property="og:site_name" content="개발자취">
-  <meta property="og:title" content="바운디드 컨텍스트">
-  <meta property="og:description" content="Domain Driven Disign">
+  <meta property="og:title" content="데이터베이스 성능">
+  <meta property="og:description" content="Mysql">
 
   
-  <meta property="og:image" content="http://localhost:4000/assets/img/DDD/DDD_Book_Thum.jpeg">
+  <meta property="og:image" content="http://localhost:4000/assets/img/avatar-icon.png">
   
 
   
   <meta property="og:type" content="article">
   <meta property="og:article:author" content="이훈재">
-  <meta property="og:article:published_time" content="2023-01-03T00:00:00+09:00">
-  <meta property="og:url" content="http://localhost:4000/2023-01-03-%EB%B0%94%EC%9A%B4%EB%94%94%EB%93%9C-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8/">
-  <link rel="canonical" href="http://localhost:4000/2023-01-03-%EB%B0%94%EC%9A%B4%EB%94%94%EB%93%9C-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8/">
+  <meta property="og:article:published_time" content="2023-01-05T00:00:00+09:00">
+  <meta property="og:url" content="http://localhost:4000/2023-01-05-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%84%B1%EB%8A%A5/">
+  <link rel="canonical" href="http://localhost:4000/2023-01-05-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%84%B1%EB%8A%A5/">
   
 
   
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:card" content="summary">
   
   <meta name="twitter:site" content="@">
   <meta name="twitter:creator" content="@">
 
-  <meta property="twitter:title" content="바운디드 컨텍스트">
-  <meta property="twitter:description" content="Domain Driven Disign">
+  <meta property="twitter:title" content="데이터베이스 성능">
+  <meta property="twitter:description" content="Mysql">
 
   
-  <meta name="twitter:image" content="http://localhost:4000/assets/img/DDD/DDD_Book_Thum.jpeg">
+  <meta name="twitter:image" content="http://localhost:4000/assets/img/avatar-icon.png">
   
 
   
@@ -163,15 +163,15 @@
     <div class="row">
       <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
         <div class="post-heading">
-          <h1>바운디드 컨텍스트</h1>
+          <h1>데이터베이스 성능</h1>
           
             
-              <h2 class="post-subheading">Domain Driven Disign</h2>
+              <h2 class="post-subheading">Mysql</h2>
             
           
 
           
-            <span class="post-meta">Posted on 2023, January 3</span>
+            <span class="post-meta">Posted on 2023, January 5</span>
             
             
           
@@ -196,66 +196,65 @@
       
 
       <article role="main" class="blog-post">
-        <h2 id="용어">용어</h2>
-<p>네이버 사전을 검색해봤을때</p>
+        <h3 id="메모리--디스크-비교">메모리 / 디스크 비교</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>메모리</th>
+      <th>디스크</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>속도</td>
+      <td>빠름</td>
+      <td>느림</td>
+    </tr>
+    <tr>
+      <td>영속성</td>
+      <td>휘발</td>
+      <td>비휘발</td>
+    </tr>
+    <tr>
+      <td>가격</td>
+      <td>고가</td>
+      <td>저가</td>
+    </tr>
+  </tbody>
+</table>
+
 <ul>
-  <li>bounded : 경계가 있는, 칸막이 된</li>
-  <li>context : 맥락, 전후사전
-이렇게 검색이 된다.</li>
+  <li><code class="language-plaintext highlighter-rouge">데이터는 결국 디스크에 저장된다.</code></li>
+  <li>디스크에 쓰기전에 메모리에 쓴다.</li>
+  <li>메모리에 쓰는 속도는 빠르기 때문에 데이터 베이스 성능의 핵심은 디스크 I/O를 최소화하는것이다.</li>
 </ul>
 
-<p>말 그대로 해석하면 <code class="language-plaintext highlighter-rouge">경계가 있는 맥락</code> 정도로 해석하면 될꺼같음.</p>
+<p><strong>그럼 디스크 접근을 줄이는 방법은??</strong></p>
+<ul>
+  <li>메모리에 올라운 데이터로 최대한 요청을 처리하자
+    <ul>
+      <li>메모리 캐시 히트율을 높이자</li>
+    </ul>
+  </li>
+</ul>
 
-<p>알아보기에 앞서 일딴 우리가 개발을 계속 해 나가다 보면 한가지 주제에대해서 기능이 계속 붙어나가고, 다른기능과 강한 결합을 맺게되기도하는데
-그렇게 계속 붙여나가다보면 너무 거대해진다.</p>
+<p><strong>디스크에 쓰기전에 전원 공급이 없으면 휘발하는 메모리에 저장된 데이터가 유실될수도?</strong></p>
+<ul>
+  <li>WAL(Wright Ahead Logging) 사용
+    <ul>
+      <li>WAL : 트랜잭션 발생시 로그에 일단 기입하여 기록을 남기고, 특정 데이터가 쌓이면 이를 flush 해 DB의 disk에 DATA BLOCK 형태로 write하게 된다.</li>
+      <li>로그로 남기때문에 문제가 생겨도 순차적 재생으로 원자성이 보장된다.</li>
+    </ul>
+  </li>
+</ul>
 
-<p>크릭에반스는 이런 경우를 거대한 진흙덩이라고 부른다.</p>
+<p>일반적으로 트랜잭션은 무작위하게 Write가 발생.
+WAL은 하나의 파일에 순차적으로 Write함</p>
 
-<pre><code class="language-mermaid">
-flowchart LR
+<p>따라서 데이터 베이스 성능의 핵심은 <strong>I/O를 줄이는게 아니고 랜덤 I/O를 줄이고 순차 I/O를 발생시키는것</strong> 이다.</p>
 
-A
-B
-C
-D
-E
-F
-G
-H
-I(...)
-G(...)
-K(...)
-
-A --&gt; B --&gt; C --&gt; A --&gt; D --&gt;E --&gt; F --&gt; G --&gt; E --&gt; H --&gt; I
-H -- &gt; A --&gt; B --&gt; C --&gt; E --&gt; H
-C --&gt; A --&gt; H --&gt; G --&gt; B
-B --&gt; K --&gt; H
-</code></pre>
-<p>이런 거대한 진흙덩이들을 맥락에 맞게 경계를 가지고자 정리를 한걸 바운디드 컨텍스트라고 볼수있다.</p>
-
-<pre><code class="language-mermaid">graph LR
-A --&gt; G
-B --&gt; D
-D --&gt; H
-C --&gt; F
-C --&gt; E
-  subgraph module A
-    A
-    G
-  end 
-  subgraph module B
-    B
-    D
-    H
-  end
-  subgraph module C
-    C
-    E
-    F
-  end  
-</code></pre>
-
-<p><strong><code class="language-plaintext highlighter-rouge">핵심되는 개념은 밀접하게 유지하고, 나머지는 제외</code></strong> 시키는게 바운디드 컨텍스트의 핵심 개념이라고 볼수있다.</p>
 
       </article>
 
@@ -263,7 +262,9 @@ C --&gt; E
         <div class="blog-tags">
           <span>Tags:</span>
           
-            <a href="/tags#Domain Driven Disign">Domain Driven Disign</a>
+            <a href="/tags#대용량 데이터 및 트레픽처리">대용량 데이터 및 트레픽처리</a>
+          
+            <a href="/tags#Mysql">Mysql</a>
           
         </div>
       
@@ -282,12 +283,12 @@ C --&gt; E
       <ul class="pagination blog-pager">
         
         <li class="page-item previous">
-          <a class="page-link" href="/2023-01-02-%EC%9C%A0%EB%B9%84%EC%BF%BC%ED%84%B0%EC%8A%A4-%EB%9E%AD%EA%B7%80%EC%A7%80/" data-toggle="tooltip" data-placement="top" title="유비쿼터스 랭귀지">&larr; Previous Post</a>
+          <a class="page-link" href="/2023-01-05-%EB%8C%80%EC%9A%A9%EB%9F%89-%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4/" data-toggle="tooltip" data-placement="top" title="대용량 시스템에 대한 이해">&larr; Previous Post</a>
         </li>
         
         
         <li class="page-item next">
-          <a class="page-link" href="/2023-01-04-%EC%95%A0%EA%B7%B8%EB%A6%AC%EA%B1%B0%ED%8A%B8/" data-toggle="tooltip" data-placement="top" title="애그리거트">Next Post &rarr;</a>
+          <a class="page-link" href="/2023-01-05-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/" data-toggle="tooltip" data-placement="top" title="동시성 제어">Next Post &rarr;</a>
         </li>
         
       </ul>

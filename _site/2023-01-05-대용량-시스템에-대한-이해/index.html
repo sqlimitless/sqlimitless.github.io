@@ -9,13 +9,13 @@
 
   
 
-  <title>바운디드 컨텍스트</title>
+  <title>대용량 시스템에 대한 이해</title>
 
   
   <meta name="author" content="이훈재">
   
 
-  <meta name="description" content="Domain Driven Disign">
+  <meta name="description" content="Mysql">
 
   
 
@@ -76,32 +76,32 @@
 
   
   <meta property="og:site_name" content="개발자취">
-  <meta property="og:title" content="바운디드 컨텍스트">
-  <meta property="og:description" content="Domain Driven Disign">
+  <meta property="og:title" content="대용량 시스템에 대한 이해">
+  <meta property="og:description" content="Mysql">
 
   
-  <meta property="og:image" content="http://localhost:4000/assets/img/DDD/DDD_Book_Thum.jpeg">
+  <meta property="og:image" content="http://localhost:4000/assets/img/avatar-icon.png">
   
 
   
   <meta property="og:type" content="article">
   <meta property="og:article:author" content="이훈재">
-  <meta property="og:article:published_time" content="2023-01-03T00:00:00+09:00">
-  <meta property="og:url" content="http://localhost:4000/2023-01-03-%EB%B0%94%EC%9A%B4%EB%94%94%EB%93%9C-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8/">
-  <link rel="canonical" href="http://localhost:4000/2023-01-03-%EB%B0%94%EC%9A%B4%EB%94%94%EB%93%9C-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8/">
+  <meta property="og:article:published_time" content="2023-01-05T00:00:00+09:00">
+  <meta property="og:url" content="http://localhost:4000/2023-01-05-%EB%8C%80%EC%9A%A9%EB%9F%89-%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4/">
+  <link rel="canonical" href="http://localhost:4000/2023-01-05-%EB%8C%80%EC%9A%A9%EB%9F%89-%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4/">
   
 
   
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:card" content="summary">
   
   <meta name="twitter:site" content="@">
   <meta name="twitter:creator" content="@">
 
-  <meta property="twitter:title" content="바운디드 컨텍스트">
-  <meta property="twitter:description" content="Domain Driven Disign">
+  <meta property="twitter:title" content="대용량 시스템에 대한 이해">
+  <meta property="twitter:description" content="Mysql">
 
   
-  <meta name="twitter:image" content="http://localhost:4000/assets/img/DDD/DDD_Book_Thum.jpeg">
+  <meta name="twitter:image" content="http://localhost:4000/assets/img/avatar-icon.png">
   
 
   
@@ -163,15 +163,15 @@
     <div class="row">
       <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
         <div class="post-heading">
-          <h1>바운디드 컨텍스트</h1>
+          <h1>대용량 시스템에 대한 이해</h1>
           
             
-              <h2 class="post-subheading">Domain Driven Disign</h2>
+              <h2 class="post-subheading">Mysql</h2>
             
           
 
           
-            <span class="post-meta">Posted on 2023, January 3</span>
+            <span class="post-meta">Posted on 2023, January 5</span>
             
             
           
@@ -196,66 +196,110 @@
       
 
       <article role="main" class="blog-post">
-        <h2 id="용어">용어</h2>
-<p>네이버 사전을 검색해봤을때</p>
+        <h2 id="웹의-기본-아키텍처">웹의 기본 아키텍처</h2>
+<hr />
+<pre><code class="language-mermaid">flowchart TD
+
+클라이언트:::A
+웹서버:::A
+웹_어플리케이션_서버:::A
+데이터베이스:::A
+
+classDef A fill:#fff
+</code></pre>
+
+<p><strong>웹서버</strong></p>
 <ul>
-  <li>bounded : 경계가 있는, 칸막이 된</li>
-  <li>context : 맥락, 전후사전
-이렇게 검색이 된다.</li>
+  <li>정적인 데이터 처리
+<strong>웹 어플리케이션 서버</strong></li>
+  <li>동적인 데이터 처리</li>
 </ul>
 
-<p>말 그대로 해석하면 <code class="language-plaintext highlighter-rouge">경계가 있는 맥락</code> 정도로 해석하면 될꺼같음.</p>
+<p><strong>강점</strong></p>
+<ol>
+  <li>관심사의 분리</li>
+  <li>관측가능한 시스템</li>
+  <li>효율적인 리소스 사용</li>
+</ol>
 
-<p>알아보기에 앞서 일딴 우리가 개발을 계속 해 나가다 보면 한가지 주제에대해서 기능이 계속 붙어나가고, 다른기능과 강한 결합을 맺게되기도하는데
-그렇게 계속 붙여나가다보면 너무 거대해진다.</p>
+<p>클라이언트는 무한정 늘어날수있는것에 반해
+웹서버, 웹 어플리케이션 서버, 데이터베이스는 한정적임.</p>
 
-<p>크릭에반스는 이런 경우를 거대한 진흙덩이라고 부른다.</p>
+<p>때문에 대용량 시스템의 경우 캐시나 비동기큐등의 다양한 기술들을 활용하게 됨.</p>
 
-<pre><code class="language-mermaid">
-flowchart LR
+<h2 id="스케일-업-스케일-아웃">스케일 업, 스케일 아웃</h2>
+<hr />
+<pre><code class="language-mermaid">flowchart LR
 
-A
-B
-C
-D
-E
-F
-G
-H
-I(...)
-G(...)
-K(...)
+A(서버)
+B(서버)
+C(서버A,서버B,서버C ...)
 
-A --&gt; B --&gt; C --&gt; A --&gt; D --&gt;E --&gt; F --&gt; G --&gt; E --&gt; H --&gt; I
-H -- &gt; A --&gt; B --&gt; C --&gt; E --&gt; H
-C --&gt; A --&gt; H --&gt; G --&gt; B
-B --&gt; K --&gt; H
-</code></pre>
-<p>이런 거대한 진흙덩이들을 맥락에 맞게 경계를 가지고자 정리를 한걸 바운디드 컨텍스트라고 볼수있다.</p>
+A--&gt;|스케일 업|B
+A--&gt;|스케일 아웃|C
+style B fill:888, width:99px, height:99px
 
-<pre><code class="language-mermaid">graph LR
-A --&gt; G
-B --&gt; D
-D --&gt; H
-C --&gt; F
-C --&gt; E
-  subgraph module A
-    A
-    G
-  end 
-  subgraph module B
-    B
-    D
-    H
-  end
-  subgraph module C
-    C
-    E
-    F
-  end  
 </code></pre>
 
-<p><strong><code class="language-plaintext highlighter-rouge">핵심되는 개념은 밀접하게 유지하고, 나머지는 제외</code></strong> 시키는게 바운디드 컨텍스트의 핵심 개념이라고 볼수있다.</p>
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>스케일 업</th>
+      <th>스케일 아웃</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>유지보수 및 관리</td>
+      <td>쉬움</td>
+      <td>여러노드에 적절히 부하분산 필요</td>
+    </tr>
+    <tr>
+      <td>확장성</td>
+      <td>제약이 있음</td>
+      <td>스케일 업에 비해 자유로움</td>
+    </tr>
+    <tr>
+      <td>장애복구</td>
+      <td>서버가 1대, 다운타임이 있음</td>
+      <td>장애 탄력성이 있음</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>스케일 아웃을 하더라도 클라이언트 입장에선 하나의 서버를 바라보는 느낌을 받아야함.</p>
+
+<p>어떤 서버에 호출을 해도 동일한 결과를 받아야함.</p>
+
+<h2 id="대용량-시스템">대용량 시스템</h2>
+<hr />
+<p><strong>대용량 시스템이 어려운 이유</strong></p>
+<ul>
+  <li>하나의 서버로 감당하기 힘들어 대부분 여러개의 서버 또는 데이버베이스를 사용함</li>
+  <li>여러개의 서버에 유입되는 데이터의 일관성을 보장할 수 있어야 함</li>
+  <li>코드 한줄이 데이터에 미치는 영향범위가 굉장히 커짐</li>
+  <li>여러 서비스들이 얽혀있어, 시스템 복잡도가 상당히 높음</li>
+</ul>
+
+<p><strong>대용량 시스템 필수 조건</strong></p>
+<ul>
+  <li><strong>고가용성</strong>
+    <ul>
+      <li>언제든 서비스를 이용할 수 있어야 한다</li>
+    </ul>
+  </li>
+  <li><strong>확장성</strong>
+    <ul>
+      <li>시스템이 비대해짐에 따라 증가하는 데이터와 트래픽에 대응할 수 있어야한다.</li>
+    </ul>
+  </li>
+  <li><strong>관측가능성</strong>
+    <ul>
+      <li>문제가 생겼을 때 빠르게 인지할 수 있어야 하고 문제의 범위를 최소화 할 수 있어야 한다.</li>
+    </ul>
+  </li>
+</ul>
 
       </article>
 
@@ -263,7 +307,9 @@ C --&gt; E
         <div class="blog-tags">
           <span>Tags:</span>
           
-            <a href="/tags#Domain Driven Disign">Domain Driven Disign</a>
+            <a href="/tags#대용량 데이터 및 트레픽처리">대용량 데이터 및 트레픽처리</a>
+          
+            <a href="/tags#Mysql">Mysql</a>
           
         </div>
       
@@ -282,12 +328,12 @@ C --&gt; E
       <ul class="pagination blog-pager">
         
         <li class="page-item previous">
-          <a class="page-link" href="/2023-01-02-%EC%9C%A0%EB%B9%84%EC%BF%BC%ED%84%B0%EC%8A%A4-%EB%9E%AD%EA%B7%80%EC%A7%80/" data-toggle="tooltip" data-placement="top" title="유비쿼터스 랭귀지">&larr; Previous Post</a>
+          <a class="page-link" href="/2023-01-05-CAP-%EC%9D%B4%EB%A1%A0/" data-toggle="tooltip" data-placement="top" title="CAP 이론">&larr; Previous Post</a>
         </li>
         
         
         <li class="page-item next">
-          <a class="page-link" href="/2023-01-04-%EC%95%A0%EA%B7%B8%EB%A6%AC%EA%B1%B0%ED%8A%B8/" data-toggle="tooltip" data-placement="top" title="애그리거트">Next Post &rarr;</a>
+          <a class="page-link" href="/2023-01-05-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%84%B1%EB%8A%A5/" data-toggle="tooltip" data-placement="top" title="데이터베이스 성능">Next Post &rarr;</a>
         </li>
         
       </ul>

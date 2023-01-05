@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>동시성 제어</title>
+
+  
+  <meta name="author" content="이훈재">
+  
+
+  <meta name="description" content="Mysql">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="개발자취" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="개발자취">
+  <meta property="og:title" content="동시성 제어">
+  <meta property="og:description" content="Mysql">
+
+  
+  <meta property="og:image" content="http://localhost:4000/assets/img/avatar-icon.png">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="이훈재">
+  <meta property="og:article:published_time" content="2023-01-05T00:00:00+09:00">
+  <meta property="og:url" content="http://localhost:4000/2023-01-05-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/">
+  <link rel="canonical" href="http://localhost:4000/2023-01-05-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@">
+  <meta name="twitter:creator" content="@">
+
+  <meta property="twitter:title" content="동시성 제어">
+  <meta property="twitter:description" content="Mysql">
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/assets/img/avatar-icon.png">
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">개발자취</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/aboutme">About Me</a>
+          </li></ul>
+  </div>
+
+  
+
+  
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        <a href="http://localhost:4000/">
+          <img alt="Navigation bar avatar" class="avatar-img" src="/assets/img/avatar-icon.png" />
+        </a>
+      </div>
+    </div>
+  
+
+</nav>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>동시성 제어</h1>
+          
+            
+              <h2 class="post-subheading">Mysql</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on 2023, January 5</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+ <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h2 id="멀티스레드-환경">멀티스레드 환경</h2>
+<hr />
+<p>동시성 이슈가 발생하는 일반적인 패턴</p>
+
+<ol>
+  <li>공유자원 조회</li>
+  <li>다른 트랜잭션이 공유자원 조회</li>
+  <li>공유자원 갱신</li>
+  <li>다른 트랜잭션 공유자원 갱신</li>
+  <li>읭?! 결과가 이상하다?!!?!</li>
+</ol>
+
+<pre><code class="language-mermaid">sequenceDiagram
+autonumber
+participant T1 as 트랜잭션1
+participant S as 공유자원
+participant T2 as 트랜잭션2
+
+T1 -&gt;&gt; S : 공유자원 조회(SELECT) data = 1
+T2 -&gt;&gt; S : 공유자원 조회(SELECT) data = 1
+T1 -&gt;&gt; S : 공유자원 갱신(UPDATE) data += 1
+Note Left Of S: 기대값 : data = 2, 결과값 : data = 2
+T2 -&gt;&gt; S : 공유자원 갱신(UPDATE) data += 1
+Note Right Of S: 기대값 : data = 3, 결과값 : data = 2
+</code></pre>
+
+<p>해결 : 공유자원에 대한 잠금을 획득하여 줄 세우기</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>읽기락(Shared Lock)</th>
+      <th>쓰기락(Exclusive Lock)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>읽기락(Shared Lock)</td>
+      <td>O</td>
+      <td>대기</td>
+    </tr>
+    <tr>
+      <td>쓰기락(Exclusive Lock)</td>
+      <td>대기</td>
+      <td>대기</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="비관적-락">비관적 락</h3>
+<hr />
+<p>기본적으로 트랜젝션이 충돌할것이라고 비관적으로 생각하고 락을 걸어둠</p>
+
+<p><code class="language-plaintext highlighter-rouge">SELECT ~ FOR UPDATE</code></p>
+<ul>
+  <li>데이터를 UPDATE 하기위해 SELECT 한거라고 표현해줌으로 베타적 Lock을 걸어둔다.</li>
+  <li>순차대로 처리하게됨.</li>
+  <li>따라서 데이터 무결성 보장하는 수준은 높지만 동시성이 떨어지기때문에 손해가 크다.</li>
+</ul>
+
+<h3 id="낙관적-락">낙관적 락</h3>
+<hr />
+<p>트랜잭션이 충돌하지 않을거라고 생각하고 진행</p>
+
+<ul>
+  <li>데이터베이스가 제공하는 락 기능을 사용하지않고 애플리케이션이 제공하는 락</li>
+  <li>version으로 상태를 관리하고 충돌이 확인되면 롤백 진행</li>
+  <li>동시요청 처리 성능은 좋지만 충돌시 롤백이 일어나서 손해가 큼</li>
+</ul>
+
+<h3 id="레코드-락">레코드 락</h3>
+<hr />
+<p>MySql InnoDB는 인덱스 락을 건다.
+예를들어</p>
+<pre><code class="language-SQL">/*city 컬럼에 인덱스 설정되어있다고 가정*/
+SELECT COUNT(*) FROM user WHERE city = 'seoul' -- 1000건 조회
+
+SELECT COUNT(*) FROM user WHERE city = 'seoul' AND nick_name = 'LHJ' -- 1건 조회
+
+UPDATE user SET phone = '01012345678' WHERE city = 'seoul' AND nick_name = 'LHJ'
+</code></pre>
+<p>해당 업데이트 쿼리를 날리면 실제 업데이트 되는건 한건이지만 city = ‘seoul’ 조건에 해당하는 1000건에 락이 걸린다.</p>
+
+<h3 id="갭-락">갭 락</h3>
+<hr />
+<p>인덱스 사이사이 비어있는 레코드에 락을 건다.
+예를들어
+|id|nick_name|
+|—|—|
+|3|lhj|
+|7|java_holic|
+|10|cpp|</p>
+
+<p>이런 테이블이 있을때</p>
+<ul>
+  <li>id &lt; 3</li>
+  <li>3 &lt; id &lt; 7</li>
+  <li>id &lt; 10
+이 부분이갭이고 이러한 갭에 락이 걸린다.</li>
+</ul>
+
+<pre><code class="language-SQL">SELECT id FROM table WHERE id BETWEEN 5 AND 15 FOR UPDATE;
+</code></pre>
+
+<p>이런경우, <code class="language-plaintext highlighter-rouge">5 &lt;= id &lt; 7</code>, <code class="language-plaintext highlighter-rouge">7 &lt; id &lt; 10</code>, <code class="language-plaintext highlighter-rouge">10 &lt; id &lt;= 15</code>는 락에 걸린다.</p>
+
+<h3 id="넥스트-키-락">넥스트 키 락</h3>
+<hr />
+<p>쉽게 생각해서 래코드 락과 갭 락이 같이 적용됐다고 보면 됨.</p>
+
+<h3 id="데드락">데드락</h3>
+<hr />
+<p>서로 무한 대기중인 상황</p>
+
+<h3 id="외래키로-인한-잠금">외래키로 인한 잠금</h3>
+<hr />
+<p>외래키는 부모테이블이나 자식 테이블에 데이터가 있는지 체크하는 작업이 필요하므로 잠금이 여러 테이블로 전파되고, 그로인해 <strong>데드락</strong>이 발생할 수 있다. 그래서 실무에서는 잘 사용하지 않는다.</p>
+
+<ol>
+  <li><strong>자식테이블</strong>이 대기하는 경우
+    <ul>
+      <li>부모테이블이 잠가두고있으면 자식테이블의 외래키 변경시 대기한다.</li>
+      <li>외래키가 아닌 경우는 잠금 확장이 발생하지 않음</li>
+    </ul>
+  </li>
+  <li><strong>부모테이블</strong>이 대기하는 경우
+    <ul>
+      <li>자식테이블 갱신중일때 부모테이블을 삭제 못함.(ON DELETE CASCADE)</li>
+    </ul>
+  </li>
+</ol>
+
+<p>이처럼 영향을 받음</p>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#대용량 데이터 및 트레픽처리">대용량 데이터 및 트레픽처리</a>
+          
+            <a href="/tags#Mysql">Mysql</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2023-01-05-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%84%B1%EB%8A%A5/" data-toggle="tooltip" data-placement="top" title="데이터베이스 성능">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2023-01-05-%EC%9D%B8%EB%8D%B1%EC%8A%A4/" data-toggle="tooltip" data-placement="top" title="인덱스">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+<script src="/assets/js/mermaid.js"></script>
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="mailto:lhjhoon@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        이훈재
+        &nbsp;&bull;&nbsp;
+      
+      2023
+
+      
+        &nbsp;&bull;&nbsp;
+        <span class="author-site">
+          <a href="http://localhost:4000/">sqlimitless.github.io</a>
+        </span>
+      
+
+      
+
+      
+
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

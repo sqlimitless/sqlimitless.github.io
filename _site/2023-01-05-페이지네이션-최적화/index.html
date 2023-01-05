@@ -9,13 +9,13 @@
 
   
 
-  <title>바운디드 컨텍스트</title>
+  <title>페이지네이션 최적화</title>
 
   
   <meta name="author" content="이훈재">
   
 
-  <meta name="description" content="Domain Driven Disign">
+  <meta name="description" content="Mysql">
 
   
 
@@ -76,32 +76,32 @@
 
   
   <meta property="og:site_name" content="개발자취">
-  <meta property="og:title" content="바운디드 컨텍스트">
-  <meta property="og:description" content="Domain Driven Disign">
+  <meta property="og:title" content="페이지네이션 최적화">
+  <meta property="og:description" content="Mysql">
 
   
-  <meta property="og:image" content="http://localhost:4000/assets/img/DDD/DDD_Book_Thum.jpeg">
+  <meta property="og:image" content="http://localhost:4000/assets/img/avatar-icon.png">
   
 
   
   <meta property="og:type" content="article">
   <meta property="og:article:author" content="이훈재">
-  <meta property="og:article:published_time" content="2023-01-03T00:00:00+09:00">
-  <meta property="og:url" content="http://localhost:4000/2023-01-03-%EB%B0%94%EC%9A%B4%EB%94%94%EB%93%9C-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8/">
-  <link rel="canonical" href="http://localhost:4000/2023-01-03-%EB%B0%94%EC%9A%B4%EB%94%94%EB%93%9C-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8/">
+  <meta property="og:article:published_time" content="2023-01-05T00:00:00+09:00">
+  <meta property="og:url" content="http://localhost:4000/2023-01-05-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-%EC%B5%9C%EC%A0%81%ED%99%94/">
+  <link rel="canonical" href="http://localhost:4000/2023-01-05-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-%EC%B5%9C%EC%A0%81%ED%99%94/">
   
 
   
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:card" content="summary">
   
   <meta name="twitter:site" content="@">
   <meta name="twitter:creator" content="@">
 
-  <meta property="twitter:title" content="바운디드 컨텍스트">
-  <meta property="twitter:description" content="Domain Driven Disign">
+  <meta property="twitter:title" content="페이지네이션 최적화">
+  <meta property="twitter:description" content="Mysql">
 
   
-  <meta name="twitter:image" content="http://localhost:4000/assets/img/DDD/DDD_Book_Thum.jpeg">
+  <meta name="twitter:image" content="http://localhost:4000/assets/img/avatar-icon.png">
   
 
   
@@ -163,15 +163,15 @@
     <div class="row">
       <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
         <div class="post-heading">
-          <h1>바운디드 컨텍스트</h1>
+          <h1>페이지네이션 최적화</h1>
           
             
-              <h2 class="post-subheading">Domain Driven Disign</h2>
+              <h2 class="post-subheading">Mysql</h2>
             
           
 
           
-            <span class="post-meta">Posted on 2023, January 3</span>
+            <span class="post-meta">Posted on 2023, January 5</span>
             
             
           
@@ -196,66 +196,80 @@
       
 
       <article role="main" class="blog-post">
-        <h2 id="용어">용어</h2>
-<p>네이버 사전을 검색해봤을때</p>
-<ul>
-  <li>bounded : 경계가 있는, 칸막이 된</li>
-  <li>context : 맥락, 전후사전
-이렇게 검색이 된다.</li>
-</ul>
+        <h2 id="오프셋-기반-페이징시-문제">오프셋 기반 페이징시 문제</h2>
+<hr />
+<ol>
+  <li>마지막 페이지를 구하기 위해 전체 갯수를 구해야한다.</li>
+  <li>오프셋 이전의 데이터를 다시 읽어온다. (불필요한 데이터 조회 발생)</li>
+</ol>
 
-<p>말 그대로 해석하면 <code class="language-plaintext highlighter-rouge">경계가 있는 맥락</code> 정도로 해석하면 될꺼같음.</p>
+<h3 id="대안--커서-기반-페이징">대안 : 커서 기반 페이징</h3>
+<ol>
+  <li>페이지 번호가 아닌 키 번호를 전달받음
+    <ul>
+      <li>전달받은 키 이전의 데이터는 조회하지않음.</li>
+    </ul>
+  </li>
+  <li>마지막 키 번호를 반납함.</li>
+  <li>그러나 게시판 형태의 UI구현이 어렵다.</li>
+</ol>
 
-<p>알아보기에 앞서 일딴 우리가 개발을 계속 해 나가다 보면 한가지 주제에대해서 기능이 계속 붙어나가고, 다른기능과 강한 결합을 맺게되기도하는데
-그렇게 계속 붙여나가다보면 너무 거대해진다.</p>
+<h2 id="커버링-인덱스">커버링 인덱스</h2>
 
-<p>크릭에반스는 이런 경우를 거대한 진흙덩이라고 부른다.</p>
+<p>검색 조건이 인덱스에 부합할때 테이블에 바로 적근하기보다 인덱스를 통해 접근하는것이 더 빠르기 때문에 인덱스를 통해서 테이블로 흐른다.
+그렇기 때문에 커버링 인덱스는 <strong>테이블까지 접근하지않고 인덱스를 데이터를 내려준다.</strong></p>
 
-<pre><code class="language-mermaid">
-flowchart LR
+<p>예를들어</p>
 
-A
-B
-C
-D
-E
-F
-G
-H
-I(...)
-G(...)
-K(...)
+<p>|나이|id|
+|—|—|
+|<span style="color:red">19</span>|<span style="color:red">3</span>|
+|<span style="color:red">27</span>|<span style="color:red">2</span>|
+|32|1|
+|45|4|
+-&gt; <em>인덱스 테이블</em></p>
 
-A --&gt; B --&gt; C --&gt; A --&gt; D --&gt;E --&gt; F --&gt; G --&gt; E --&gt; H --&gt; I
-H -- &gt; A --&gt; B --&gt; C --&gt; E --&gt; H
-C --&gt; A --&gt; H --&gt; G --&gt; B
-B --&gt; K --&gt; H
-</code></pre>
-<p>이런 거대한 진흙덩이들을 맥락에 맞게 경계를 가지고자 정리를 한걸 바운디드 컨텍스트라고 볼수있다.</p>
+<p>|id|이름|성별|나이|직업|
+|—|—|—|—|—|
+|1|이훈재|남|35|개발자|
+|2|홍길동|남|35|도적|
+|3|유관순|여|18|학생|
+|4|이순신|남|35|경찰|
+-&gt; <em>회원 테이블(pk:id)</em></p>
 
-<pre><code class="language-mermaid">graph LR
-A --&gt; G
-B --&gt; D
-D --&gt; H
-C --&gt; F
-C --&gt; E
-  subgraph module A
-    A
-    G
-  end 
-  subgraph module B
-    B
-    D
-    H
-  end
-  subgraph module C
-    C
-    E
-    F
-  end  
-</code></pre>
+<p>나이가 30이하인 회원 둘 조회시</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span>
+	<span class="n">id</span>
+<span class="k">FROM</span>
+	<span class="err">회원</span> 
+<span class="k">WHERE</span> <span class="err">나이</span> <span class="o">&lt;</span> <span class="mi">30</span>
+<span class="k">LIMIT</span> <span class="mi">2</span>
+</code></pre></div></div>
+<p>이렇게 쿼리문을 짜게되면 테이블까지 조회안하고 바로 인덱스에서 데이터를 넘겨준다.
+하지만</p>
 
-<p><strong><code class="language-plaintext highlighter-rouge">핵심되는 개념은 밀접하게 유지하고, 나머지는 제외</code></strong> 시키는게 바운디드 컨텍스트의 핵심 개념이라고 볼수있다.</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span>
+	<span class="n">id</span><span class="p">,</span><span class="err">이름</span>
+<span class="k">FROM</span>
+	<span class="err">회원</span> 
+<span class="k">WHERE</span> <span class="err">나이</span> <span class="o">&lt;</span> <span class="mi">30</span>
+<span class="k">LIMIT</span> <span class="mi">2</span>
+</code></pre></div></div>
+<p>이렇게 인덱스에 없는 이름을 함께 조회하게되면 테이블까지 조회하게됨</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">WITH</span> <span class="err">커버링</span> <span class="k">AS</span> <span class="p">(</span>
+	<span class="k">SELECT</span>
+		<span class="n">id</span>
+	<span class="k">FROM</span>
+		<span class="err">회원</span> 
+	<span class="k">WHERE</span> <span class="err">나이</span> <span class="o">&lt;</span> <span class="mi">30</span>
+	<span class="k">LIMIT</span> <span class="mi">2</span>
+<span class="p">)</span>
+<span class="k">SELECT</span> <span class="err">이름</span>
+<span class="k">FROM</span> <span class="err">회원</span> <span class="k">INNER</span> <span class="k">JOIN</span> <span class="err">커버링</span> <span class="k">ON</span> <span class="err">회원</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="err">커버링</span><span class="p">.</span><span class="n">id</span>
+</code></pre></div></div>
+
+<p>이렇게 활용하면 <strong>커버링 인덱스를 활용해서 조회하게 되면 불필요한 랜덤 데이터 엑세스를 막을수 있다.</strong>
+ORDER BY, OFFSER, LIMIT 절로 인한 불필효한 데이터 블록 접근을 커버링 인덱스를 통해 최소화 할수있다.</p>
 
       </article>
 
@@ -263,7 +277,9 @@ C --&gt; E
         <div class="blog-tags">
           <span>Tags:</span>
           
-            <a href="/tags#Domain Driven Disign">Domain Driven Disign</a>
+            <a href="/tags#대용량 데이터 및 트레픽처리">대용량 데이터 및 트레픽처리</a>
+          
+            <a href="/tags#Mysql">Mysql</a>
           
         </div>
       
@@ -282,13 +298,9 @@ C --&gt; E
       <ul class="pagination blog-pager">
         
         <li class="page-item previous">
-          <a class="page-link" href="/2023-01-02-%EC%9C%A0%EB%B9%84%EC%BF%BC%ED%84%B0%EC%8A%A4-%EB%9E%AD%EA%B7%80%EC%A7%80/" data-toggle="tooltip" data-placement="top" title="유비쿼터스 랭귀지">&larr; Previous Post</a>
+          <a class="page-link" href="/2023-01-05-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/" data-toggle="tooltip" data-placement="top" title="트랜잭션">&larr; Previous Post</a>
         </li>
         
-        
-        <li class="page-item next">
-          <a class="page-link" href="/2023-01-04-%EC%95%A0%EA%B7%B8%EB%A6%AC%EA%B1%B0%ED%8A%B8/" data-toggle="tooltip" data-placement="top" title="애그리거트">Next Post &rarr;</a>
-        </li>
         
       </ul>
       

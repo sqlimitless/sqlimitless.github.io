@@ -12,9 +12,97 @@
     
     
       <item>
+        <title>페이지네이션 최적화</title>
+        <description>
+          Mysql - 
+          오프셋 기반 페이징시 문제 마지막 페이지를 구하기 위해 전체 갯수를 구해야한다. 오프셋 이전의 데이터를 다시 읽어온다. (불필요한 데이터 조회 발생) 대안 : 커서 기반 페이징 페이지 번호가 아닌 키 번호를 전달받음 전달받은 키 이전의 데이터는 조회하지않음. 마지막 키 번호를 반납함. 그러나 게시판 형태의 UI구현이 어렵다. 커버링 인덱스 검색 조건이 인덱스에...
+        </description>
+        <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2023-01-05-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-%EC%B5%9C%EC%A0%81%ED%99%94/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-01-05-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-%EC%B5%9C%EC%A0%81%ED%99%94/</guid>
+      </item>
+    
+      <item>
+        <title>트랜잭션</title>
+        <description>
+          Mysql - 
+          ACID Atomicity 원자적 연산을 보장해야 한다. MVCC를 통해서 Consistency 트랜잭션이 종료되었을 때 데이터 무결성이 보장된다. 제약조건을 통해 Isolation 트랜잭션은 서로 간섭하지 않고 독립적으로 동작한다. 많은 성능을 포기해야하므로 개발자가 제어가능 트랜잭션 격리레벨을 통해 Durability 완료된 트랜잭션은 유실되지 않는다. WAL을 통해 MVCC (Multi Version Concurrency Control) Lock걸지 않고 데이터의 읽기 일관성을 보장해주는...
+        </description>
+        <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2023-01-05-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-01-05-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/</guid>
+      </item>
+    
+      <item>
+        <title>정규화</title>
+        <description>
+          Mysql - 
+          중복되는 데이터는 반드시 정규화 해야할까? 무조건적인 기계적인 정규화보다는 정규화는 결국 읽기 비용이 늘고 쓰기 비용이 줄어드는 작업. 상황에 맞게 작업해야함. 고려해야할 것 얼마나 빠르게 데이터 최신성을 보장해야 하는지 히스토리성 데이터는 오히려 정규화를 하지 않아야 한다 데이터가 많아지면 테이블 참조의 비용이 많아진다. 데이터 변경 주기와 조회 주기는 어떻게 되는지 변경주기가 빈번하면...
+        </description>
+        <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2023-01-05-%EC%A0%95%EA%B7%9C%ED%99%94/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-01-05-%EC%A0%95%EA%B7%9C%ED%99%94/</guid>
+      </item>
+    
+      <item>
+        <title>인덱스</title>
+        <description>
+          Mysql - 
+          인덱스 기본동작 인덱스는 정렬된 자료구조로서 이를 통해 탐색범위를 최소화 한다. |데이터주소|name|age| |—|—|—| |1|홍길동|23| |2|이훈재|35| |3|임꺽정|33| |4|이순신|32| 이 테이블에 age를 인덱스로 잡으면 |age|데이터주소| |—|—| |23|1| |32|4| |33|3| |35|2| 인덱스를 걸어둔 컬럼(age)을 기준으로 정렬한 테이블이 하나 생긴다. 쿼리가 들어오면 인덱스를 먼저 확인한다. 인덱스를 이용한 검색자료구조 HashMap 단건 검색속도 O(1) 범위 검색 속도...
+        </description>
+        <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2023-01-05-%EC%9D%B8%EB%8D%B1%EC%8A%A4/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-01-05-%EC%9D%B8%EB%8D%B1%EC%8A%A4/</guid>
+      </item>
+    
+      <item>
+        <title>동시성 제어</title>
+        <description>
+          Mysql - 
+          멀티스레드 환경 동시성 이슈가 발생하는 일반적인 패턴 공유자원 조회 다른 트랜잭션이 공유자원 조회 공유자원 갱신 다른 트랜잭션 공유자원 갱신 읭?! 결과가 이상하다?!!?! sequenceDiagram autonumber participant T1 as 트랜잭션1 participant S as 공유자원 participant T2 as 트랜잭션2 T1 -&amp;gt;&amp;gt; S : 공유자원 조회(SELECT) data = 1 T2 -&amp;gt;&amp;gt; S : 공유자원...
+        </description>
+        <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2023-01-05-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-01-05-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4/</guid>
+      </item>
+    
+      <item>
+        <title>데이터베이스 성능</title>
+        <description>
+          Mysql - 
+          메모리 / 디스크 비교   메모리 디스크 속도 빠름 느림 영속성 휘발 비휘발 가격 고가 저가 데이터는 결국 디스크에 저장된다. 디스크에 쓰기전에 메모리에 쓴다. 메모리에 쓰는 속도는 빠르기 때문에 데이터 베이스 성능의 핵심은 디스크 I/O를 최소화하는것이다. 그럼 디스크 접근을 줄이는 방법은?? 메모리에 올라운 데이터로 최대한 요청을 처리하자 메모리 캐시 히트율을...
+        </description>
+        <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2023-01-05-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%84%B1%EB%8A%A5/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-01-05-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%84%B1%EB%8A%A5/</guid>
+      </item>
+    
+      <item>
+        <title>대용량 시스템에 대한 이해</title>
+        <description>
+          Mysql - 
+          웹의 기본 아키텍처 flowchart TD 클라이언트:::A 웹서버:::A 웹_어플리케이션_서버:::A 데이터베이스:::A classDef A fill:#fff 웹서버 정적인 데이터 처리 웹 어플리케이션 서버 동적인 데이터 처리 강점 관심사의 분리 관측가능한 시스템 효율적인 리소스 사용 클라이언트는 무한정 늘어날수있는것에 반해 웹서버, 웹 어플리케이션 서버, 데이터베이스는 한정적임. 때문에 대용량 시스템의 경우 캐시나 비동기큐등의 다양한 기술들을 활용하게 됨....
+        </description>
+        <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2023-01-05-%EB%8C%80%EC%9A%A9%EB%9F%89-%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-01-05-%EB%8C%80%EC%9A%A9%EB%9F%89-%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4/</guid>
+      </item>
+    
+      <item>
+        <title>CAP 이론</title>
+        <description>
+          Mysql - 
+          CAP이론이란? 네트워크로 연결된 분산 시스템에서 Consistency (일관성), Availability (가용성), Partitions Tolerance (분리 내구성) 이 3가지 속성을 모두 가지는 것은 불가능 하다는 이론이다. 2개만 선택해라.. Consistency (일관성) 여기서 말하는 일관성은 결과적 일관성이 아니다. 데이터를 요청할때 언제나 가장 최신의 데이터를 리턴해야한다. 즉, 각 노드가 동기화 되기전에 반환하는게 아니고 모두 동기화 후에 반환을 하던가 실패를...
+        </description>
+        <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2023-01-05-CAP-%EC%9D%B4%EB%A1%A0/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-01-05-CAP-%EC%9D%B4%EB%A1%A0/</guid>
+      </item>
+    
+      <item>
         <title>애그리거트</title>
         <description>
-          
+          Domain Driven Disign - 
           트랜젝션 스크립트 패턴 서비스 계층에서 직접 DB에 붙어서 비즈니스 로직을 처리하는것. 비즈니스 로직이 복잡할수록 트랜젝션간에 비즈니스 로직이 중복되기 쉽다. 중복된 코드가 동기와 되지 않으면 일관성 없는 동작이 발생하기 쉽다. 그로인해 유지보구사 어려운 거대한 진흙 덩이가 될 가능성이 큼 액티브 레코드 패턴 객체 모댈(Entity)을 만들어서 사용. 끽해봐야 getter, setter 정도이며 save()정도...
         </description>
         <pubDate>Wed, 04 Jan 2023 00:00:00 +0900</pubDate>
@@ -25,7 +113,7 @@
       <item>
         <title>바운디드 컨텍스트</title>
         <description>
-          
+          Domain Driven Disign - 
           용어 네이버 사전을 검색해봤을때 bounded : 경계가 있는, 칸막이 된 context : 맥락, 전후사전 이렇게 검색이 된다. 말 그대로 해석하면 경계가 있는 맥락 정도로 해석하면 될꺼같음. 알아보기에 앞서 일딴 우리가 개발을 계속 해 나가다 보면 한가지 주제에대해서 기능이 계속 붙어나가고, 다른기능과 강한 결합을 맺게되기도하는데 그렇게 계속 붙여나가다보면 너무 거대해진다. 크릭에반스는...
         </description>
         <pubDate>Tue, 03 Jan 2023 00:00:00 +0900</pubDate>
@@ -36,7 +124,7 @@
       <item>
         <title>유비쿼터스 랭귀지</title>
         <description>
-          
+          Domain Driven Disign - 
           유비쿼터스 랭귀지(보편언어)
 네이버 사전에서 단어를 검색했을때
 
@@ -59,9 +147,9 @@
       </item>
     
       <item>
-        <title>Domain Driven Disign</title>
+        <title>도메인 주도 설계란?</title>
         <description>
-          도메인 주도 설계란? - 
+          Domain Driven Disign - 
           팀에서 DDD에 대해 발표하겠다 선언하는바람에 열심히 공부하고 발표했었는데 시간이 지나고 블로그에 정리한다. 발표도 최대한 간추려서 발표했는데 그걸 또 간추려보았다. 반 버논의 도메인 주도 설계 핵심과 최범균님의 도메인 주도 개발 시작하기 및 인프런에 한정헌님의 강의를 보고 작성한 글이다. 모노리식 아키텍처 기존 전통적인 아키텍처. 하나의 서비스 또는 애플리케이션이 하나의 거대한 아키텍쳐 하나로...
         </description>
         <pubDate>Sun, 01 Jan 2023 00:00:00 +0900</pubDate>
